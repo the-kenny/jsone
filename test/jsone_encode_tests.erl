@@ -266,6 +266,8 @@ encode_test_() ->
      %% Pretty Print
      {"space",
       fun () ->
+              ?assertEqual({ok, <<"[]">>}, jsone_encode:encode([], [{space, 1}])),
+              ?assertEqual({ok, <<"[1, [], 3]">>}, jsone_encode:encode([1, [], 3], [{space, 1}])),
               ?assertEqual({ok, <<"[1, 2, 3]">>}, jsone_encode:encode([1,2,3], [{space, 1}])),
               ?assertEqual({ok, <<"[1,  2,  3]">>}, jsone_encode:encode([1,2,3], [{space, 2}])),
               ?assertEqual({ok, <<"{\"a\": 1, \"b\": 2}">>}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{space, 1}])),
@@ -273,6 +275,8 @@ encode_test_() ->
       end},
      {"indent",
       fun () ->
+              ?assertEqual({ok, <<"[]">>}, jsone_encode:encode([], [{indent, 1}])),
+              ?assertEqual({ok, <<"[\n 1,\n [],\n 3\n]">>}, jsone_encode:encode([1,[],3], [{indent, 1}])),
               ?assertEqual({ok, <<"[\n 1,\n 2,\n 3\n]">>}, jsone_encode:encode([1,2,3], [{indent, 1}])),
               ?assertEqual({ok, <<"[\n  1,\n  2,\n  3\n]">>}, jsone_encode:encode([1,2,3], [{indent, 2}])),
               ?assertEqual({ok, <<"{\n \"a\":1,\n \"b\":2\n}">>}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{indent, 1}])),
@@ -280,6 +284,8 @@ encode_test_() ->
       end},
      {"indent+space",
       fun () ->
+              ?assertEqual({ok, <<"[]">>}, jsone_encode:encode([], [{indent, 1}, {space, 1}])),
+              ?assertEqual({ok, <<"[\n 1,\n [],\n 3\n]">>}, jsone_encode:encode([1,[],3], [{indent, 1}, {space, 1}])),
               ?assertEqual({ok, <<"[\n 1,\n 2,\n 3\n]">>}, jsone_encode:encode([1,2,3], [{indent, 1}, {space, 1}])),
               ?assertEqual({ok, <<"[\n  1,\n  2,\n  3\n]">>}, jsone_encode:encode([1,2,3], [{indent, 2}, {space, 2}])),
               ?assertEqual({ok, <<"{\n \"a\": 1,\n \"b\": 2\n}">>}, jsone_encode:encode(?OBJ2(a, 1, b, 2), [{indent, 1}, {space, 1}])),

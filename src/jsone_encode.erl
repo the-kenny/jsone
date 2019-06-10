@@ -303,6 +303,8 @@ hex(X) ->
           ).
 
 -spec array(jsone:json_array(), [next()], binary(), opt()) -> encode_result().
+array([], Nexts, Buf, Opt) ->
+    next(Nexts, <<Buf/binary, $[, $]>>, Opt);
 array(List, Nexts, Buf, Opt) ->
     array_values(List, Nexts, pp_newline(<<Buf/binary, $[>>, Nexts, 1, Opt), Opt).
 
